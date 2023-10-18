@@ -1,0 +1,93 @@
+@startuml
+class com.example.app.SpringBootSunnyShop.entity.Vegetable {
+~ Long id
+~ String img
+~ String name
+~ String article
+~ String descr
+~ Double price
+}
+class com.example.app.SpringBootSunnyShop.entity.Order {
+~ Long id
+~ String orderCode
+~ String userName
+~ String userPhone
+~ String userEmail
+~ String content
+}
+class com.example.app.SpringBootSunnyShop.service.Admin.AdminFruitService {
+~ FruitRepository repository
++ void createFruit(Fruit)
++ List<Fruit> getAll()
+}
+class com.example.app.SpringBootSunnyShop.service.User.UserVegetableService {
+~ VegetableRepository repository
++ List<Vegetable> getAll()
+}
+interface com.example.app.SpringBootSunnyShop.repository.FruitRepository {
+}
+interface com.example.app.SpringBootSunnyShop.repository.OrderRepository {
+}
+class com.example.app.SpringBootSunnyShop.service.Admin.AdminVegetableService {
+~ VegetableRepository repository
++ List<Vegetable> getAll()
+}
+interface com.example.app.SpringBootSunnyShop.repository.VegetableRepository {
+~ List<Vegetable> findAll()
+}
+class com.example.app.SpringBootSunnyShop.utils.StringGenerator {
++ {static} String genStr()
+}
+class com.example.app.SpringBootSunnyShop.controller.AdminController {
+~ AdminFruitService userFruitService
+~ AdminVegetableService userVegetableService
++ String getHome(Model)
++ String getFruits(Model)
++ String getVegetables(Model)
+}
+class com.example.app.SpringBootSunnyShop.utils.ResponseMessage {
+- boolean success
+- String message
+}
+class com.example.app.SpringBootSunnyShop.controller.UserController {
+~ UserFruitService userFruitService
+~ UserVegetableService userVegetableService
+~ UserOrderService userOrderService
++ String getHome(Model)
++ String getFruits(Model)
++ String getVegetables(Model)
++ String getContacts(Model)
++ ResponseEntity<?> makeOrder(String,String,String,String)
+}
+class com.example.app.SpringBootSunnyShop.SunnyShopApplicationTests {
+~ void contextLoads()
+}
+class com.example.app.SpringBootSunnyShop.SunnyShopApplication {
+- {static} Logger LOGGER
++ {static} void main(String[])
+}
+class com.example.app.SpringBootSunnyShop.utils.Constants {
++ {static} String URL_IMAGES_UPLOADS
+}
+class com.example.app.SpringBootSunnyShop.service.User.UserFruitService {
+~ FruitRepository repository
++ List<Fruit> getAll()
+}
+class com.example.app.SpringBootSunnyShop.entity.Fruit {
+~ Long id
+~ String img
+~ String name
+~ String article
+~ String descr
+~ Double price
+}
+class com.example.app.SpringBootSunnyShop.service.User.UserOrderService {
+~ OrderRepository repository
++ String makeOrder(String[])
+}
+
+
+org.springframework.data.repository.CrudRepository <|-- com.example.app.SpringBootSunnyShop.repository.FruitRepository
+org.springframework.data.repository.CrudRepository <|-- com.example.app.SpringBootSunnyShop.repository.OrderRepository
+org.springframework.data.repository.CrudRepository <|-- com.example.app.SpringBootSunnyShop.repository.VegetableRepository
+@enduml
